@@ -30,7 +30,7 @@ function NavBar() {
       <div className="flex justify-center">
         <Link to="/" className="flex items-center ">
           <FaCube className="scale-[1.2] mr-2 ml-2" />
-          <h1 className="text-2xl inline-block">CryptoCube</h1>
+          <h1 className="text-2xl inline-block">CryptoCube.</h1>
         </Link>
       </div>
 

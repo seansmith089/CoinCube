@@ -18,8 +18,6 @@ export const AuthContextProvider = ({ children }) => {
   const [userExistsError, setUserExistsError] = useState(false);
   const [pwLengthError, setPwLengthError] = useState(false)
   const [pwError, setPwError] = useState("")
-
-  
   const signUp = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -50,7 +48,6 @@ export const AuthContextProvider = ({ children }) => {
   const logOut = () => {
     return signOut(auth);
   };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

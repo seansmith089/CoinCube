@@ -5,18 +5,22 @@ import { FaTwitter, FaFacebook, FaReddit, FaGithub } from "react-icons/fa";
 import DOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
 
-
 function CoinPage() {
   const [coin, setCoin] = useState({});
-  const params = useParams()
+  const params = useParams();
 
-  const url =
-    `https://api.coingecko.com/api/v3/coins/${params.coinID}?localization=false&sparkline=true`;
+  const url = `https://api.coingecko.com/api/v3/coins/${params.coinID}?localization=false&sparkline=true`;
 
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setCoin(response.data);
-    });
+    axios
+      .get(url, {
+        headers: {
+          "Access-Control-Allow-Origin": true,
+        },
+      })
+      .then((response) => {
+        setCoin(response.data);
+      });
   }, [url]);
   return (
     <div className="rounded-div my-12 py-8">
@@ -74,6 +78,7 @@ function CoinPage() {
             </div>
           </div>
         </div>
+        {console.log(coin)}
 
         <div>
           <p className="text-xl font-bold">Market Stats</p>
@@ -88,7 +93,7 @@ function CoinPage() {
             </div>
             <div>
               <p className="text-gray-500 text-sm">Trust Score</p>
-              {coin.tickers ? <p>{coin.liquidity_score.toFixed(2)}</p> : null}
+              {coin.tickers ? <p>{coin.liquidity_score?.toFixed(2)}</p> : null}
             </div>
           </div>
 
@@ -97,21 +102,23 @@ function CoinPage() {
               <p className="text-gray-500 text-sm">Price Change (24h)</p>
               {coin.market_data ? (
                 <p>
-                  {coin.market_data.price_change_percentage_24h.toFixed(2)}%
+                  {coin.market_data?.price_change_percentage_24h?.toFixed(2)}%
                 </p>
               ) : null}
             </div>
             <div>
               <p className="text-gray-500 text-sm">Price Change (7d)</p>
               {coin.market_data ? (
-                <p>{coin.market_data.price_change_percentage_7d.toFixed(2)}%</p>
+                <p>
+                  {coin.market_data?.price_change_percentage_7d?.toFixed(2)}%
+                </p>
               ) : null}
             </div>
             <div>
               <p className="text-gray-500 text-sm">Price Change (14d)</p>
               {coin.market_data ? (
                 <p>
-                  {coin.market_data.price_change_percentage_14d.toFixed(2)}%
+                  {coin.market_data?.price_change_percentage_14d?.toFixed(2)}%
                 </p>
               ) : null}
             </div>
@@ -121,7 +128,7 @@ function CoinPage() {
               <p className="text-gray-500 text-sm">Price Change (30d)</p>
               {coin.market_data ? (
                 <p>
-                  {coin.market_data.price_change_percentage_30d.toFixed(2)}%
+                  {coin.market_data?.price_change_percentage_30d?.toFixed(2)}%
                 </p>
               ) : null}
             </div>
@@ -130,14 +137,16 @@ function CoinPage() {
               <p className="text-gray-500 text-sm">Price Change (60d)</p>
               {coin.market_data ? (
                 <p>
-                  {coin.market_data.price_change_percentage_60d.toFixed(2)}%
+                  {coin.market_data?.price_change_percentage_60d?.toFixed(2)}%
                 </p>
               ) : null}
             </div>
             <div>
               <p className="text-gray-500 text-sm">Price Change (1y)</p>
               {coin.market_data ? (
-                <p>{coin.market_data.price_change_percentage_1y.toFixed(2)}%</p>
+                <p>
+                  {coin.market_data?.price_change_percentage_1y?.toFixed(2)}%
+                </p>
               ) : null}
             </div>
           </div>
